@@ -130,23 +130,22 @@
     .v-fragmented{ color:var(--red); background:var(--red-dim); }
     .matrix-note{ margin-top:14px; font-size:.8rem; color:var(--text-muted); max-width:78ch; }
 
-    /* LANGUAGE CHART */
+    /* LANGUAGE GAP CHART (diverging) */
     .lchart{ margin-top:36px; border:1px solid var(--border); border-radius:8px; background:var(--bg-raised); padding:26px 26px 22px; }
-    .lchart-group{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--text-muted); margin:0 0 14px; }
-    .lchart-group + .lrow{ margin-top:0; }
-    .lchart-group.second{ margin-top:30px; }
-    .lrow{ display:grid; grid-template-columns:190px 1fr 52px; gap:14px; align-items:center; margin-bottom:12px; }
-    .lrow .llabel{ font-size:.88rem; color:var(--text); line-height:1.3; }
-    .lrow .llabel small{ display:block; font-size:.72rem; color:var(--text-muted); font-family:var(--font-mono); }
-    .lrow .ltrack{ position:relative; height:14px; background:var(--surface); border-radius:4px; }
-    .lrow .lbar{ position:absolute; left:0; top:0; bottom:0; background:var(--accent); border-radius:4px; }
-    .lrow .lmark{ position:absolute; top:-4px; bottom:-4px; width:2px; background:var(--text); opacity:.55; }
-    .lrow .lval{ font-family:var(--font-mono); font-size:.84rem; color:var(--text); text-align:right; }
-    .lchart-key{ display:flex; flex-wrap:wrap; gap:18px; margin:20px 0 22px; font-size:.78rem; color:var(--text-muted); }
-    .lchart-key span{ display:inline-flex; align-items:center; gap:7px; }
-    .lchart-key .kbar{ width:22px; height:10px; border-radius:3px; background:var(--accent); display:inline-block; }
-    .lchart-key .kmark{ width:2px; height:14px; background:var(--text); opacity:.55; display:inline-block; }
-    @media (max-width:620px){ .lrow{ grid-template-columns:120px 1fr 44px; gap:10px; } }
+    .lchart-title{ font-family:var(--font-display); font-size:1.05rem; font-weight:700; margin-bottom:8px; }
+    .lchart-sub{ font-size:.82rem; color:var(--text-muted); max-width:66ch; line-height:1.5; margin-bottom:24px; }
+    .grow{ display:grid; grid-template-columns:180px 1fr; gap:14px; align-items:center; margin-bottom:12px; }
+    .grow .glabel{ font-size:.88rem; color:var(--text); line-height:1.3; }
+    .grow .glabel small{ display:block; font-size:.72rem; color:var(--text-muted); font-family:var(--font-mono); }
+    .grow .gtrack{ position:relative; height:16px; }
+    .grow .gzero{ position:absolute; left:50%; top:-3px; bottom:-3px; width:2px; background:var(--text); opacity:.5; }
+    .grow .gbar{ position:absolute; top:1px; bottom:1px; border-radius:4px; }
+    .grow .gbar.pos{ background:var(--green); }
+    .grow .gbar.neg{ background:var(--red); }
+    .grow .gval{ position:absolute; top:50%; transform:translateY(-50%); font-family:var(--font-mono); font-size:.82rem; font-weight:600; }
+    .grow .gval.pos{ color:var(--green); }
+    .grow .gval.neg{ color:var(--red); }
+    @media (max-width:620px){ .grow{ grid-template-columns:110px 1fr; gap:10px; } }
 
     /* PROPOSAL */
     .proposal{ background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
@@ -227,13 +226,13 @@
   <header class="hero">
     <div class="container">
       <div class="eyebrow">Report</div>
-      <h1>The role of language<br>in web3 adoption.</h1>
-      <p class="lede">We tracked six months of wallet clicks across the 36 language editions of ethereum.org's wallet list, and read the translation files major apps actually ship. In much of the world, language decides which wallet gets the click. Very few teams are competing for it.</p>
+      <h1>The role of language<br>in web3 adoption</h1>
+      <p class="lede">We tracked six months of wallet clicks across the 36 language editions of ethereum.org's wallet list. Then we read the translation files of major apps such as Uniswap, Aave and 1inch. The short version: in Brazil, the six wallets available in Portuguese collect nine of every ten clicks, the pattern repeats across Asia, and most apps have not entered the race.</p>
 
       <div class="stat-strip">
-        <div class="stat"><span class="n">~12,000</span><span class="l">clicks to wallet websites every month, from one page</span></div>
-        <div class="stat"><span class="n">91%</span><span class="l">of Brazilian clicks go to the 6 wallets (of 49) available in Portuguese</span></div>
-        <div class="stat"><span class="n">3</span><span class="l">wallets currently available in Polish</span></div>
+        <div class="stat"><span class="n">91%</span><span class="l">of Brazilian clicks go to the 6 of 49 wallets available in Portuguese</span></div>
+        <div class="stat"><span class="n">7 of 11</span><span class="l">measured markets where readers actively seek wallets in their language</span></div>
+        <div class="stat"><span class="n">87%</span><span class="l">of visits on the Chinese edition end with a wallet chosen. English edition: 36%</span></div>
       </div>
     </div>
   </header>
@@ -245,77 +244,61 @@
     <div class="container">
       <div class="eyebrow">The market</div>
       <h2>Where a translation<br><em>wins</em> users.</h2>
-      <p class="kicker">ethereum.org lists 49 wallets and puts the ones available in the reader's language at the top. The rest of the order is random, which makes this measurable: we can separate clicks a wallet earns by sitting high on the list from clicks readers give it because it speaks their language. Six months, 36 language editions, about 40,000 outbound clicks.</p>
+      <p class="kicker">ethereum.org, the Ethereum ecosystem's main education site, keeps a list of 49 wallets and publishes it in 36 languages. On each language edition, wallets available in that language appear at the top; the rest of the order is random. That design makes reader preference measurable. If people clicked whatever sits on top, the top wallets would collect a predictable share of clicks. Everything beyond that share means readers went looking for their language.</p>
+      <p class="kicker">The result splits the world in two. In Brazil, Taiwan, Thailand, Indonesia, Vietnam, Russia and China, readers chose wallets in their language far beyond what top placement explains. In Poland, Czechia, Ukraine and the Arabic edition, readers scrolled past those wallets and picked global brands. A translation buys users in the first group and buys little in the second.</p>
 
-      <div class="lchart" role="img" aria-label="Share of wallet clicks going to wallets available in the reader's language, by country, compared with what list placement alone would earn them">
-        <div class="lchart-key">
-          <span><span class="kbar"></span> clicks that went to wallets in the reader's language</span>
-          <span><span class="kmark"></span> what top placement alone would earn those wallets</span>
-        </div>
+      <div class="lchart" role="img" aria-label="Extra share of clicks that wallets earned by being available in the reader's language, by country">
+        <div class="lchart-title">Extra clicks earned by speaking the reader's language</div>
+        <div class="lchart-sub">0 means wallets in the language got exactly the clicks their top placement predicts. Right of 0: readers sought out their language. Left of 0: readers ignored it.</div>
 
-        <div class="lchart-group">Readers here sought out their language</div>
-        <div class="lrow" title="Brazil: 6 of 49 wallets are available in Portuguese. They took 91% of clicks; placement alone predicts 52%.">
-          <span class="llabel">Brazil · Portuguese<small>6 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:91%"></span><span class="lmark" style="left:52%"></span></span>
-          <span class="lval">91%</span>
+        <div class="grow" title="Brazil: the 6 wallets available in Portuguese took 91% of clicks; top placement alone predicts 52%. Language earned them an extra 39 points.">
+          <span class="glabel">Brazil<small>Portuguese · 6 of 49 wallets</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:48.7%"></span><span class="gval pos" style="left:99.5%">+39</span></span>
         </div>
-        <div class="lrow" title="Taiwan: 7 of 49 wallets are available in Traditional Chinese. They took 81% of clicks; placement alone predicts 57%.">
-          <span class="llabel">Taiwan · Chinese (Trad.)<small>7 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:81%"></span><span class="lmark" style="left:57%"></span></span>
-          <span class="lval">81%</span>
+        <div class="grow" title="Taiwan: the 7 wallets available in Traditional Chinese took 81% of clicks; placement predicts 57%. Extra: 24 points.">
+          <span class="glabel">Taiwan<small>Trad. Chinese · 7 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:30%"></span><span class="gval pos" style="left:80.8%">+24</span></span>
         </div>
-        <div class="lrow" title="Thailand: 10 of 49 wallets are available in Thai. They took 83% of clicks; placement alone predicts 63%.">
-          <span class="llabel">Thailand · Thai<small>10 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:83%"></span><span class="lmark" style="left:63%"></span></span>
-          <span class="lval">83%</span>
+        <div class="grow" title="Thailand: the 10 wallets available in Thai took 83% of clicks; placement predicts 63%. Extra: 20 points.">
+          <span class="glabel">Thailand<small>Thai · 10 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:25%"></span><span class="gval pos" style="left:75.8%">+20</span></span>
         </div>
-        <div class="lrow" title="Indonesia: 15 of 49 wallets are available in Indonesian. They took 84% of clicks; placement alone predicts 70%.">
-          <span class="llabel">Indonesia · Indonesian<small>15 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:84%"></span><span class="lmark" style="left:70%"></span></span>
-          <span class="lval">84%</span>
+        <div class="grow" title="Indonesia: the 15 wallets available in Indonesian took 84% of clicks; placement predicts 70%. Extra: 14 points.">
+          <span class="glabel">Indonesia<small>Indonesian · 15 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:17.5%"></span><span class="gval pos" style="left:68.3%">+14</span></span>
         </div>
-        <div class="lrow" title="Vietnam: 14 of 49 wallets are available in Vietnamese. They took 82% of clicks; placement alone predicts 69%.">
-          <span class="llabel">Vietnam · Vietnamese<small>14 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:82%"></span><span class="lmark" style="left:69%"></span></span>
-          <span class="lval">82%</span>
+        <div class="grow" title="Vietnam: the 14 wallets available in Vietnamese took 82% of clicks; placement predicts 69%. Extra: 13 points.">
+          <span class="glabel">Vietnam<small>Vietnamese · 14 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:16.2%"></span><span class="gval pos" style="left:67%">+13</span></span>
         </div>
-        <div class="lrow" title="Russia: 22 of 49 wallets are available in Russian. They took 92% of clicks; placement alone predicts 80%.">
-          <span class="llabel">Russia · Russian<small>22 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:92%"></span><span class="lmark" style="left:80%"></span></span>
-          <span class="lval">92%</span>
+        <div class="grow" title="Russia: the 22 wallets available in Russian took 92% of clicks; placement predicts 80%. Extra: 12 points.">
+          <span class="glabel">Russia<small>Russian · 22 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:15%"></span><span class="gval pos" style="left:65.8%">+12</span></span>
         </div>
-        <div class="lrow" title="China: 28 of 49 wallets are available in Chinese. They took 95% of clicks; placement alone predicts 83%.">
-          <span class="llabel">China · Chinese<small>28 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:95%"></span><span class="lmark" style="left:83%"></span></span>
-          <span class="lval">95%</span>
+        <div class="grow" title="China: the 28 wallets available in Chinese took 95% of clicks; placement predicts 83%. Extra: 12 points.">
+          <span class="glabel">China<small>Chinese · 28 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:15%"></span><span class="gval pos" style="left:65.8%">+12</span></span>
         </div>
-
-        <div class="lchart-group second">Readers here shopped by brand instead</div>
-        <div class="lrow" title="Czechia: 4 of 49 wallets are available in Czech. They took 45% of clicks; placement alone predicts 44%.">
-          <span class="llabel">Czechia · Czech<small>4 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:45%"></span><span class="lmark" style="left:44%"></span></span>
-          <span class="lval">45%</span>
+        <div class="grow" title="Czechia: the 4 wallets available in Czech took 45% of clicks; placement predicts 44%. Within noise.">
+          <span class="glabel">Czechia<small>Czech · 4 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar pos" style="left:50%;width:1.2%"></span><span class="gval pos" style="left:52%">+1</span></span>
         </div>
-        <div class="lrow" title="Ukraine: 8 of 49 wallets are available in Ukrainian. They took 57% of clicks; placement alone predicts 59%.">
-          <span class="llabel">Ukraine · Ukrainian<small>8 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:57%"></span><span class="lmark" style="left:59%"></span></span>
-          <span class="lval">57%</span>
+        <div class="grow" title="Ukraine: the 8 wallets available in Ukrainian took 57% of clicks; placement predicts 59%. Within noise.">
+          <span class="glabel">Ukraine<small>Ukrainian · 8 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar neg" style="right:50%;width:2.5%"></span><span class="gval neg" style="right:53%">-2</span></span>
         </div>
-        <div class="lrow" title="Poland: 3 of 49 wallets are available in Polish. They took 27% of clicks; placement alone predicts 37%.">
-          <span class="llabel">Poland · Polish<small>3 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:27%"></span><span class="lmark" style="left:37%"></span></span>
-          <span class="lval">27%</span>
+        <div class="grow" title="Poland: the 3 wallets available in Polish took 27% of clicks; placement predicts 37%. Readers skipped them by 10 points.">
+          <span class="glabel">Poland<small>Polish · 3 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar neg" style="right:50%;width:12.5%"></span><span class="gval neg" style="right:63.3%">-10</span></span>
         </div>
-        <div class="lrow" title="Arabic edition: 10 of 49 wallets are available in Arabic. They took 43% of clicks; placement alone predicts 63%.">
-          <span class="llabel">Arabic edition<small>10 of 49 wallets</small></span>
-          <span class="ltrack"><span class="lbar" style="width:43%"></span><span class="lmark" style="left:63%"></span></span>
-          <span class="lval">43%</span>
+        <div class="grow" title="Arabic edition: the 10 wallets available in Arabic took 43% of clicks; placement predicts 63%. Readers skipped them by 20 points.">
+          <span class="glabel">Arabic edition<small>Arabic · 10 of 49</small></span>
+          <span class="gtrack"><span class="gzero"></span><span class="gbar neg" style="right:50%;width:25%"></span><span class="gval neg" style="right:75.8%">-20</span></span>
         </div>
       </div>
-      <p class="matrix-note">Each bar: the share of that edition's outbound clicks going to wallets available in the reader's language. The line: the share those same wallets would get from their list position alone. A bar past its line means readers went looking for their language.</p>
+      <p class="matrix-note">Units: percentage points of all wallet clicks on that language edition, beyond (or below) what list placement alone predicts. Six months of data, about 40,000 clicks. Gaps under ten points are within noise.</p>
 
-      <p class="kicker" style="margin-top:30px">The chart splits the world in two. In Brazil, Taiwan, Thailand, Indonesia, Vietnam, Russia and China, readers went well past what placement explains: they wanted a wallet in their language and clicked accordingly. In Poland, Czechia, Ukraine and the Arabic edition, readers scrolled past the local-language wallets and picked global brands, so a translation buys little there.</p>
-      <p class="kicker">For anyone allocating a localization budget, that is the priority list. And the traffic is worth winning: these are people mid-decision. On the Chinese edition, 87 of every 100 visits end with a click out to a wallet website. On the English page it is 36.</p>
+      <p class="kicker" style="margin-top:30px">For anyone allocating a localization budget, the top of this chart is the priority list.</p>
     </div>
   </section>
 
@@ -326,7 +309,7 @@
     <div class="container">
       <div class="eyebrow">The catch</div>
       <h2>A translation only pays<br>if it's <em>right</em>.</h2>
-      <p class="kicker">Before that budget goes to a vendor, one warning from the other half of this research. We read the translation files six dapps and Binance actually ship, in Portuguese, Spanish and Russian. Most of what differs between apps is harmless synonym choice. A few things reverse meaning. Aave's Russian interface labels its repay button with the Russian word for reward, and mistranslates collateral, stake and withdraw the same way: a plausible word carrying the wrong sense. The same app's Spanish gets all four right. The Russian file shipped without a native review, in an app that manages loans.</p>
+      <p class="kicker">There is one trap in this budget line. Machine translation produces text that looks right, and nobody on the team can tell when it is wrong. Aave, one of the largest lending apps, publishes a Russian translation in which four core terms carry the wrong meaning. Its Spanish version has none of these errors. The difference is a native speaker reading the file before users do.</p>
 
       <div class="bug-block">
         <div class="bug-label">Aave · Russian · four terms that move money</div>
@@ -336,31 +319,31 @@
           <div class="bug-row"><span class="en">Stake</span><span class="arr">→</span><span class="got">Столб</span><span class="arr">→</span><span class="mean">means "pillar / post"</span></div>
           <div class="bug-row"><span class="en">Withdraw</span><span class="arr">→</span><span class="got">Отводить</span><span class="arr">→</span><span class="mean">means "divert away"</span></div>
         </div>
-        <div class="bug-note">Machine translation produced plausible Russian, so nothing looked broken, and it shipped. Budget for a native speaker to read the terms that move money. Leaving jargon in English has a cost too: "slippage" untranslated hides the one number protecting a trader from a bad price.</div>
+        <div class="bug-note">Machine translation produced plausible Russian, so nothing looked broken. Budget for a native speaker to read the terms that move money. Leaving jargon in English has a cost too: "slippage" untranslated hides the one number protecting a trader from a bad price.</div>
       </div>
 
-      <p class="kicker" style="margin-top:34px">The other cost of translating alone is vocabulary. Your users arrive having already learned terms in other apps, and today those apps disagree, app to app and sometimes screen to screen. Here is how six actions read across the apps we audited:</p>
+      <p class="kicker" style="margin-top:34px">Quality is one half of the picture; existence is the other. We took the ten most used consumer apps on Ethereum and its layer-2 networks, ranked by active addresses, and checked which languages their interfaces actually ship. Four of the ten are English only.</p>
 
-      <div class="matrix-head" style="margin-top:26px">
-        <div></div>
-        <div class="toggle" role="tablist" aria-label="Language">
-          <button id="tab-pt" class="on" onclick="setLang('pt')">Português</button>
-          <button id="tab-es" onclick="setLang('es')">Español</button>
-          <button id="tab-ru" onclick="setLang('ru')">Русский</button>
-        </div>
+      <div class="matrix-wrap" style="margin-top:26px">
+        <table class="matrix" style="min-width:640px">
+          <thead>
+            <tr><th>App · by usage</th><th>Category</th><th>Interface languages</th><th>Grade</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="row-action">Uniswap<span class="en">#1 most used</span></td><td>Exchange</td><td>13, including Brazilian Portuguese, Indonesian, Vietnamese, Chinese, Russian and Spanish</td><td><span class="verdict v-consistent">A</span></td></tr>
+            <tr><td class="row-action">Relay<span class="en">#2</span></td><td>Bridge</td><td>English only</td><td><span class="verdict v-fragmented">F</span></td></tr>
+            <tr><td class="row-action">OpenSea<span class="en">#3</span></td><td>NFT marketplace</td><td>7: German, Spanish, French, Japanese, Chinese (both scripts)</td><td><span class="verdict v-split">B</span></td></tr>
+            <tr><td class="row-action">Jumper<span class="en">#4</span></td><td>Bridge aggregator</td><td>16, including Thai, Indonesian, Vietnamese, Portuguese and Chinese</td><td><span class="verdict v-consistent">A</span></td></tr>
+            <tr><td class="row-action">Matcha<span class="en">#5</span></td><td>Swap aggregator</td><td>English only</td><td><span class="verdict v-fragmented">F</span></td></tr>
+            <tr><td class="row-action">Across<span class="en">#6</span></td><td>Bridge</td><td>English only</td><td><span class="verdict v-fragmented">F</span></td></tr>
+            <tr><td class="row-action">1inch<span class="en">#7</span></td><td>Swap aggregator</td><td>13, including Indonesian, Vietnamese, Russian, Chinese and Spanish</td><td><span class="verdict v-consistent">A</span></td></tr>
+            <tr><td class="row-action">Aerodrome<span class="en">#8</span></td><td>Exchange</td><td>English only</td><td><span class="verdict v-fragmented">F</span></td></tr>
+            <tr><td class="row-action">Aave<span class="en">#9</span></td><td>Lending</td><td>4: Spanish, French, Greek. An unreviewed Russian file sits in the repository, unshipped</td><td><span class="verdict v-split">C</span></td></tr>
+            <tr><td class="row-action">KyberSwap<span class="en">#10</span></td><td>Exchange</td><td>2: Chinese only</td><td><span class="verdict v-split">C</span></td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="legend">
-        <span><span style="color:var(--green);font-weight:700">&#10003;</span> matches the prevailing word</span>
-        <span><span style="color:var(--red);font-weight:700">&#10007;</span> diverges, or contradicts itself</span>
-        <span><i class="dot" style="background:var(--green)"></i> all agree</span>
-        <span><i class="dot" style="background:var(--amber)"></i> two forms</span>
-        <span><i class="dot" style="background:var(--red)"></i> three or more</span>
-        <span style="opacity:.6">— not in that app</span>
-      </div>
-      <div class="matrix-wrap">
-        <table class="matrix" id="matrix"></table>
-      </div>
-      <p class="matrix-note" id="matrix-note"></p>
+      <p class="matrix-note">Grades measure how many languages the app interface ships: A is 10 or more, B is 5 to 9, C is 2 to 4, F is English only. Breadth says nothing about quality; Aave's Russian file above is the proof. Verified July 2026 from locale files in public repositories and production JS bundles; details in the method note below.</p>
     </div>
   </section>
 
@@ -369,9 +352,11 @@
   <!-- 3 · THE PLAY -->
   <section class="proposal reveal">
     <div class="container">
-      <div class="eyebrow">The play</div>
-      <h2>Fifty terms, done right,<br><em>earn</em> distribution.</h2>
-      <p class="kicker">The language flags wallets declare on ethereum.org already carry real weight: on the Russian edition, nine of every ten clicks go to wallets flagged as supporting Russian. Today that flag is taken on trust, and Aave shows what an unreviewed translation can hide. We are proposing the ranking boost move to verified translations. For a wallet team the mechanics stay simple: translate the roughly fifty terms that move money (send, repay, collateral, withdraw, seed phrase), have a native speaker sign off, and the placement follows. There is a shared glossary so nobody has to invent the vocabulary alone.</p>
+      <div class="eyebrow">The fix</div>
+      <h2>A shared glossary,<br>and a reason to <em>use</em> it.</h2>
+      <p class="kicker">Two things would change this picture. The first is a shared glossary: an open list of the fifty or so crypto terms that move money (send, repay, collateral, withdraw, seed phrase) with one agreed translation per language, so every team ships the same correct words instead of inventing its own.</p>
+      <p class="kicker">The second is a reason to use it. Wallets tell ethereum.org which languages they support, and the site ranks them higher on those language editions. Today it takes the wallet's word for it; nobody checks the translation exists or is any good. If that ranking counted only translations reviewed by a native speaker, getting fifty terms right would directly win a wallet placement in front of readers who are minutes from choosing one.</p>
+      <p class="matrix-note" style="margin-top:24px">Today, three Spanish words compete for one field label. The glossary settles it once:</p>
 
       <div class="before-after">
         <div class="ba-chaos">
@@ -388,17 +373,17 @@
         <div class="step">
           <div class="num">01</div>
           <h4>AI drafts everything</h4>
-          <p>Every term, every language, generated and published instantly. Translation was never the bottleneck.</p>
+          <p>Every term in every language can be machine-generated in a day. Drafting was never the hard part.</p>
         </div>
         <div class="step">
           <div class="num">02</div>
-          <h4>Native speakers rule the hard calls</h4>
-          <p>Contested choices go to the people who read them: translate "slippage" or keep it? Coin a word that does not exist yet? They decide and put their name on it.</p>
+          <h4>Native speakers decide the hard calls</h4>
+          <p>Keep "slippage" in English or translate it? Coin a word that does not exist yet? The people who read the language decide, and sign the decision.</p>
         </div>
         <div class="step">
           <div class="num">03</div>
-          <h4>Verification earns the boost</h4>
-          <p>Apps pull the termbase; auditors and LLMs cite it via an open API; listing surfaces reward the wallets that pass. One steward decision fixes the word everywhere at once.</p>
+          <h4>Apps and ethereum.org adopt it</h4>
+          <p>Teams pull the glossary instead of translating from scratch, and ethereum.org rewards wallets whose translations passed a native review with better placement.</p>
         </div>
       </div>
 
@@ -424,8 +409,8 @@
           <p>Pick a market from the top group of the chart. <b>Indonesian, Vietnamese, Thai and Brazilian Portuguese have measured demand and single-digit competition.</b> Fifty core terms plus a native review is a small sprint, and it competes for thousands of monthly high-intent clicks.</p>
         </div>
         <div class="ask">
-          <div class="who">Dapp teams</div>
-          <p>Your locale files are public. <b>Have a native speaker read the terms that move money</b> before your users do. We share flagged terms on request and will gladly re-audit.</p>
+          <div class="who">App teams</div>
+          <p>Four of the ten most used apps ship no translations at all; the graded table shows who. If you do translate, <b>have a native speaker read the terms that move money</b> before your users do. We share flagged terms on request and will gladly re-audit.</p>
         </div>
         <div class="ask">
           <div class="who">Translators</div>
@@ -443,8 +428,9 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-text">
-        Method, terminology: read from each app's shipped translation catalogs (open-source repos, live CDN locale files, in-app i18n), in Portuguese, Spanish and Russian. Apps: Uniswap, 1inch, Polymarket, Aave, Tornado Cash, Fluidkey (Spanish only; it has no pt/ru). A blank cell means the action is absent in that app, verified against each full catalog. Binance (a centralized exchange) is shown for contrast; its Connect/Approve/Gas live on wallet-gated screens we could not capture, so a blank Binance cell there means not-captured. June 2026.
+        Method, translation quality: we read the translation catalogs apps ship (open-source repos, live CDN locale files, in-app i18n) in Portuguese, Spanish and Russian, June 2026; the Aave findings come from its published Russian catalog.
         Method, adoption: outbound clicks from ethereum.org/wallets/find-wallet and its language editions (Matomo; April to June 2026 for the ten largest locales, January to June for 26 smaller ones). The "placement alone" baseline models a reader who clicks purely by list order, estimated from 1,277 position-tagged clicks on the English page. Clicks measure wallet selection on that page and say nothing about what happens inside apps after the click. Small locales carry a few hundred clicks, so gaps under ten points are treated as noise. English proficiency plausibly explains which markets seek their language and which shop by brand; that reading is our interpretation.
+        Method, coverage grades: the ten most used consumer apps on Ethereum and its layer-2 networks by 7-day active addresses (growthepie API, fetched 2026-07-10), excluding centralized-exchange products, wallets, token contracts, infrastructure without a consumer interface, and gaming entries with bot-suspect address counts. Interface languages verified in July 2026 from locale files in public repositories or production JS bundles. English-only verdicts for the closed-source apps (Relay, Matcha, Across, Aerodrome) come from inspecting their live bundles and markup for i18n runtimes and language switchers; they are high-confidence, short of certainty.
         &nbsp;·&nbsp; <a href="https://ethux.design">EthUX</a>
       </p>
     </div>
@@ -457,85 +443,6 @@
     }
     (function(){ try{ var t=localStorage.getItem('ethux-theme'); if(t==='light') document.documentElement.classList.remove('dark'); }catch(e){} })();
 
-    // ---- Data (verified from shipped catalogs; "na" = action absent in that app) ----
-    var DATA = {
-      es: {
-        apps: ["Uniswap","1inch","Polymarket","Aave","Tornado","Fluidkey","Binance"],
-        rows: [
-          { en:"Connect wallet", action:"Connect",  cells:["billetera","wallet","na","cartera","Conectar","wallet","na"] },
-          { en:"Approve",        action:"Approve",   cells:["Aprobar / Aprueba","na","Aprobar","Aprobar","Aprobar","na","na"] },
-          { en:"Swap",           action:"Swap",      cells:["Intercambiar","Intercambio / Swap","na","Swap","na","na","Intercambios"] },
-          { en:"Withdraw",       action:"Withdraw",  cells:["Retirar","na","Retirar","Retirar","Retiro","na","Retirar"] },
-          { en:"Gas",            action:"Gas",       cells:["Gas","Gas","na","na","Gas","na","na"] },
-          { en:"Amount",         action:"Amount",    cells:["Monto","Cantidad / Importe","Importe / Monto","Cantidad","Cantidad","Cantidad / Monto","Cantidad"] }
-        ],
-        note: "Spanish across six apps. Approving a token mostly lands on Aprobar, except Uniswap, which flips between Aprobar and Aprueba in its own UI. The word wallet is most often just left in English. Amount (bottom row) is the cosmetic case: three valid synonyms a reader copes with."
-      },
-      pt: {
-        apps: ["Uniswap · PT","Uniswap · BR","1inch","Polymarket","Binance"],
-        rows: [
-          { en:"Connect wallet", action:"Connect",  cells:["Conectar","Conectar","Ligar","Ligar","na"] },
-          { en:"Approve",        action:"Approve",   cells:["Aprovar","Aprovar","na","Aprovar","na"] },
-          { en:"Swap",           action:"Swap",      cells:["Fazer swap","Trocar","Troca / Swap / Efetuar swap","na","Troque"] },
-          { en:"Withdraw",       action:"Withdraw",  cells:["Saque","Saque","na","Levantar","Saque"] },
-          { en:"Gas",            action:"Gas",       cells:["Gas","Gas","Gas / gás","na","na"] },
-          { en:"Amount",         action:"Amount",    cells:["Valor","Valor","Montante / Valor","Valor","Valor"] }
-        ],
-        note: "Portuguese. Uniswap ships two contradictory variants; its pt-PT file actually uses Brazilian forms (Conectar, Saque). connect is Conectar (LatAm) vs Ligar (European), and swap takes six forms. Approve is the rare point of agreement (Aprovar)."
-      },
-      ru: {
-        apps: ["Uniswap","1inch","Polymarket","Aave","Tornado","Binance"],
-        rows: [
-          { en:"Connect wallet", action:"Connect", cells:["Подключить кошелёк","Подключите кошелёк","na","Подключить кошелёк","Подключить","na"] },
-          { en:"Approve",  action:"Approve",  cells:["Одобрить / Разрешить / Утвердить","na","Одобрить","Утвердить","Разрешить","na"] },
-          { en:"Swap",     action:"Swap",     cells:["Своп / Выполнить своп","Обмен / Обменять","na","Swap","na","Своп"] },
-          { en:"Withdraw", action:"Withdraw", cells:["Вывод","na","Вывод","Отводить","Вывод / Снять","Вывод"] },
-          { en:"Gas",      action:"Gas",      cells:["Газ","Газ","na","na","Газ","na"] },
-          { en:"Amount",   action:"Amount",   cells:["Сумма","Сумма","Сумма","Количество","Сумма","Сумма"] }
-        ],
-        note: "Russian. Approve, a security-critical action, is rendered three different ways across apps: Одобрить (approve), Разрешить (allow), Утвердить (confirm). Aave mistranslates Withdraw as Отводить, which means divert away. Gas is uniformly transliterated to Газ."
-      }
-    };
-
-    function renderMatrix(lang){
-      var d = DATA[lang];
-      var t = document.getElementById('matrix');
-      var head = "<thead><tr><th>Action</th>" + d.apps.map(function(a){return "<th>"+a+"</th>";}).join("") + "<th>Verdict</th></tr></thead>";
-      var body = "<tbody>" + d.rows.map(function(r){
-        var present = r.cells.filter(function(c){return c!=='na';});
-        var distinct = present.filter(function(v,i){return present.indexOf(v)===i;});
-        // frequency sort so the consensus value takes the first palette slot
-        distinct.sort(function(a,b){ return present.filter(function(x){return x===b;}).length - present.filter(function(x){return x===a;}).length; });
-        var colorMap = {};
-        if(distinct.length===1){ colorMap[distinct[0]]="green"; }
-        else { var pal=["amber","blue","purple","cyan","red"]; distinct.forEach(function(v,i){ colorMap[v]=pal[i%pal.length]; }); }
-        var sev = distinct.length<=1 ? "consistent" : (distinct.length===2 ? "split" : "fragmented");
-        var vlabel = sev==="consistent" ? "Consistent" : (sev==="split" ? "Split" : "Fragmented");
-
-        var counts = {}; present.forEach(function(v){ counts[v]=(counts[v]||0)+1; });
-        var maxC = 0; Object.keys(counts).forEach(function(k){ if(counts[k]>maxC) maxC=counts[k]; });
-        var leaders = Object.keys(counts).filter(function(k){ return counts[k]===maxC; });
-        var consensus = (leaders.length===1 && maxC>1) ? leaders[0] : null;
-        var cells = r.cells.map(function(c){
-          if(c==='na'){ return "<td class='cell'><span class='na'>—</span></td>"; }
-          var col = colorMap[c] || "amber";
-          var selfSplit = c.indexOf('/')>=0;
-          var agrees = consensus!==null && c===consensus && !selfSplit;
-          var mark = agrees
-            ? "<span class='mk ok' title='matches the prevailing translation'>&#10003;</span>"
-            : "<span class='mk no' title='"+(selfSplit?'this app contradicts itself':'diverges from the other apps')+"'>&#10007;</span>";
-          return "<td class='cell'><span class='cell-inner' style='color:var(--"+col+"); background:var(--"+col+"-dim)'>"+mark+c+"</span></td>";
-        }).join("");
-        return "<tr><td class='row-action'>"+r.action+"<span class='en'>EN · "+r.en+"</span></td>"+cells+"<td><span class='verdict v-"+sev+"'>"+vlabel+"</span></td></tr>";
-      }).join("") + "</tbody>";
-      t.innerHTML = head + body;
-      document.getElementById('matrix-note').textContent = d.note;
-    }
-    function setLang(lang){
-      ['es','pt','ru'].forEach(function(l){ document.getElementById('tab-'+l).classList.toggle('on', lang===l); });
-      renderMatrix(lang);
-    }
-    renderMatrix('pt');
 
     // scroll reveal
     var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); }, {threshold:.12});
