@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Signing Registry Audit | EthUX</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f1f1f1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c0c10" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Geist';
+      src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist:vf@latest/latin-wght-normal.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Geist Mono';
+      src: url('https://cdn.jsdelivr.net/fontsource/fonts/geist-mono:vf@latest/latin-wght-normal.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f1f1f1;
+      --bg-raised: #ffffff;
+      --bg-panel: rgba(255, 255, 255, 0.72);
+      --bg-panel-solid: #ffffff;
+      --surface: #F0EDE8;
+      --surface-hover: rgba(8, 58, 243, 0.02);
+      --border: rgba(8, 58, 243, 0.08);
+      --border-light: rgba(8, 58, 243, 0.04);
+      --text: #1C1917;
+      --text-dim: #515151;
+      --text-muted: #A8A29E;
+      --accent: #083AF3;
+      --accent-hover: #0630D4;
+      --accent-dim: rgba(8, 58, 243, 0.12);
+      --accent-glow: rgba(8, 58, 243, 0.06);
+      --accent-secondary: #2BB4A8;
+      --red: #EF4444;
+      --red-dim: rgba(239, 68, 68, 0.10);
+      --green: #22C55E;
+      --green-dim: rgba(34, 197, 94, 0.10);
+      --blue: #5a8aea;
+      --blue-dim: rgba(90, 138, 234, 0.12);
+      --purple: #8b6ce0;
+      --purple-dim: rgba(139, 108, 224, 0.12);
+      --cyan: #4ac4c4;
+      --cyan-dim: rgba(74, 196, 196, 0.10);
+      --amber: #E8A020;
+      --amber-dim: rgba(232, 160, 32, 0.12);
+      --font-display: 'Libre Baskerville', Georgia, serif;
+      --font-body: 'Geist', system-ui, sans-serif;
+      --font-mono: 'Geist Mono', ui-monospace, monospace;
+      --transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-fast: 0.15s ease;
+      --radius-sm: 4px;
+      --radius-md: 4px;
+      --radius-full: 9999px;
+      --nav-height: 56px;
+      --shadow-lg: none;
+    }
+
+    html.dark {
+      --bg: #0c0c10;
+      --bg-raised: #151519;
+      --bg-panel: rgba(21, 21, 25, 0.85);
+      --bg-panel-solid: #151519;
+      --surface: #1c1c22;
+      --surface-hover: rgba(59, 111, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.04);
+      --text: #F0EEEB;
+      --text-dim: #A8A6A3;
+      --text-muted: #858481;
+      --accent: #0079FF;
+      --accent-hover: #339DFF;
+      --accent-dim: rgba(0, 121, 255, 0.18);
+      --accent-glow: rgba(0, 121, 255, 0.10);
+      --accent-secondary: #3DD4C6;
+      --red: #F87171;
+      --red-dim: rgba(248, 113, 113, 0.12);
+      --green: #4ADE80;
+      --green-dim: rgba(74, 222, 128, 0.12);
+      --blue: #7CA8F4;
+      --blue-dim: rgba(124, 168, 244, 0.12);
+      --purple: #A78BFA;
+      --purple-dim: rgba(167, 139, 250, 0.12);
+      --cyan: #5ED5D5;
+      --cyan-dim: rgba(94, 213, 213, 0.12);
+      --amber: #FBBF24;
+      --amber-dim: rgba(251, 191, 36, 0.12);
+      --shadow-lg: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    html { scrollbar-gutter: stable; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      color: var(--text);
+      background: var(--bg);
+      background-image: radial-gradient(circle, #d5d5d5 1px, transparent 1px);
+      background-size: 24px 24px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    html.dark body {
+      background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
+    }
+
+    #grain {
+      position: fixed; inset: 0; z-index: 9999;
+      pointer-events: none;
+      opacity: 0.035;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-left: 48px;
+      padding-right: 48px;
+    }
+
+    /* ---- NAV (matches ethux.design exactly) ---- */
+    .nav {
+      position: sticky; top: 0;
+      z-index: 200;
+      height: var(--nav-height);
+      background: var(--bg-panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-inner {
+      display: flex; align-items: center;
+      height: 100%;
+    }
+    .nav-home {
+      display: flex; align-items: center; gap: 12px;
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-home svg { width: 18px; height: 28px; color: var(--accent); }
+    .nav-home:hover { color: var(--accent); }
+    .nav-wordmark {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .nav-links-desktop {
+      display: flex; align-items: center; gap: 32px;
+      margin-left: 48px;
+    }
+    .nav-links-desktop a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .nav-links-desktop a:hover { color: var(--accent); }
+    .nav-links-desktop a.active { color: var(--accent); }
+    .nav-dropdown {
+      position: relative;
+      display: flex;
+    }
+    .nav-dropdown-trigger {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0;
+      transition: color var(--transition);
+    }
+    .nav-dropdown-trigger:hover { color: var(--accent); }
+    .nav-dropdown-chevron { transition: transform var(--transition-fast); }
+    .nav-dropdown.open .nav-dropdown-chevron,
+    .nav-dropdown:hover .nav-dropdown-chevron { transform: rotate(180deg); }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      min-width: 140px;
+      padding: 6px 0;
+      z-index: 300;
+      flex-direction: column;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown.open .nav-dropdown-menu { display: flex; }
+    .nav-dropdown-menu a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      padding: 8px 16px;
+      transition: color var(--transition), background var(--transition);
+    }
+    .nav-dropdown-menu a:hover {
+      color: var(--accent);
+      background: var(--surface-hover);
+    }
+    .nav-external { display: inline-flex; align-items: center; gap: 4px; }
+    .nav-external svg { width: 12px; height: 12px; opacity: 0.5; }
+    .nav-theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color var(--transition), border-color var(--transition);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .nav-theme-toggle:hover { color: var(--accent); border-color: var(--accent-dim); }
+    .nav-theme-toggle svg { width: 16px; height: 16px; }
+    .nav-theme-toggle svg:first-child { display: block; }
+    .nav-theme-toggle svg:last-child { display: none; }
+    html.dark .nav-theme-toggle svg:first-child { display: none; }
+    html.dark .nav-theme-toggle svg:last-child { display: block; }
+    .nav-hamburger {
+      display: none;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer;
+      color: var(--text);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 199;
+      background: var(--bg-panel-solid);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 16px 0;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a.active { color: var(--accent); }
+    .mobile-menu-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 16px 0 0 0;
+      opacity: 0.6;
+    }
+    .mobile-menu-sub {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding-top: calc(56px + 80px);
+      padding-bottom: 80px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: 1.125rem;
+      color: var(--text-dim);
+      max-width: 680px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* ---- STATS ROW ---- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 80px;
+    }
+    .stat-card {
+      background: var(--bg-raised);
+      padding: 28px 24px;
+    }
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-value.accent { color: var(--accent); }
+    .stat-value.red { color: var(--red); }
+    .stat-value.amber { color: var(--amber); }
+    .stat-value.green { color: var(--green); }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ---- SECTIONS ---- */
+    .section { margin-bottom: 96px; }
+    .section-header { margin-bottom: 40px; }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+    .section-desc code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+
+    /* ---- CONCEPT GROUP CARDS (accordion) ---- */
+    .concept-group {
+      border: 1px solid var(--border);
+      margin-bottom: 2px;
+    }
+    .concept-header {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--bg-raised);
+      cursor: pointer;
+      transition: background var(--transition);
+      user-select: none;
+    }
+    .concept-header:hover { background: var(--surface); }
+    .concept-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+    .concept-name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    .concept-count {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .concept-severity {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      justify-self: end;
+    }
+    .severity-critical { color: var(--red); background: var(--red-dim); }
+    .severity-high { color: var(--amber); background: var(--amber-dim); }
+    .severity-medium { color: var(--blue); background: var(--blue-dim); }
+    .severity-low { color: var(--green); background: var(--green-dim); }
+
+    .concept-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+      justify-self: end;
+    }
+    .concept-group.open .concept-chevron { transform: rotate(180deg); }
+
+    .concept-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .concept-group.open .concept-body {
+      grid-template-rows: 1fr;
+    }
+    .concept-body-inner {
+      overflow: hidden;
+    }
+    .concept-content {
+      padding: 0 24px 24px;
+      background: var(--bg-raised);
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* ---- VARIANT TABLE ---- */
+    .variant-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    .variant-table th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+    }
+    html:not(.dark) .variant-table th { background: rgba(0, 0, 0, 0.02); }
+    .variant-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+    .variant-table tr:last-child td { border-bottom: none; }
+    .variant-table .label-cell {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .variant-table .protocol-cell {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+    .variant-table .protocol-cell a {
+      color: var(--text-dim);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 3px;
+      transition: color var(--transition), text-decoration-color var(--transition);
+    }
+    .variant-table .protocol-cell a::after {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-left: 2px;
+      margin-right: 4px;
+      vertical-align: middle;
+      opacity: 0.4;
+      background: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
+      mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") no-repeat center / contain;
+      transition: opacity var(--transition);
+    }
+    .variant-table .protocol-cell a:hover::after {
+      opacity: 1;
+    }
+    .variant-table .protocol-cell a:hover {
+      color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
+    .variant-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    html:not(.dark) .variant-table tr:hover td { background: rgba(0, 0, 0, 0.02); }
+
+    /* ---- PROTOCOL TABLE ---- */
+    .protocol-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .protocol-table th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 12px;
+      background: var(--bg-raised);
+      border-bottom: 1px solid var(--border);
+    }
+    .protocol-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+    .protocol-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+    html:not(.dark) .protocol-table tr:hover td { background: rgba(0, 0, 0, 0.02); }
+    .protocol-name { font-weight: 600; color: var(--text); }
+    .file-count {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .label-list { display: flex; flex-wrap: wrap; gap: 4px; }
+    .label-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .label-tag.bad {
+      color: var(--red);
+      background: var(--red-dim);
+      border-color: rgba(248, 113, 113, 0.2);
+    }
+    html:not(.dark) .label-tag.bad {
+      border-color: rgba(239, 68, 68, 0.25);
+    }
+
+    /* ---- WORST OFFENDERS ---- */
+    .offender-card {
+      border: 1px solid var(--border);
+      background: var(--bg-raised);
+      padding: 28px 24px;
+      margin-bottom: 2px;
+    }
+    .offender-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .offender-rank {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--red);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .offender-name { font-weight: 700; font-size: 1.1rem; }
+    .offender-issue {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .offender-examples { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    /* ---- FORMAT DISTRIBUTION ---- */
+    .format-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .format-name {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      width: 120px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .format-bar-track {
+      flex: 1;
+      height: 24px;
+      background: var(--surface);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .format-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .format-count {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      width: 40px;
+      flex-shrink: 0;
+    }
+
+    /* ---- WHAT WORKS ---- */
+    .good-card {
+      border: 1px solid rgba(74, 222, 128, 0.15);
+      background: rgba(74, 222, 128, 0.04);
+      padding: 24px;
+      margin-bottom: 2px;
+    }
+    html:not(.dark) .good-card {
+      border-color: rgba(34, 197, 94, 0.2);
+      background: rgba(34, 197, 94, 0.04);
+    }
+    .good-card .protocol-name { color: var(--green); }
+    .good-card p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+    .good-card code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      background: rgba(74, 222, 128, 0.08);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--green);
+    }
+
+    /* ---- EXPLAINER (collapsible) ---- */
+    .explainer {
+      border: 1px solid var(--border);
+      margin-bottom: 80px;
+    }
+    .explainer-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 28px 40px;
+      background: var(--bg-raised);
+      cursor: pointer;
+      transition: background var(--transition);
+      user-select: none;
+    }
+    .explainer-header:hover { background: var(--surface); }
+    .explainer-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+    .explainer-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+    .explainer.open .explainer-chevron { transform: rotate(180deg); }
+    .explainer-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .explainer.open .explainer-body {
+      grid-template-rows: 1fr;
+    }
+    .explainer-body-inner { overflow: hidden; }
+    .explainer-content {
+      padding: 0 40px 40px;
+      background: var(--bg-raised);
+      border-top: 1px solid var(--border-light);
+    }
+    .explainer-content p {
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-top: 20px;
+      max-width: 680px;
+    }
+    .explainer-content strong { color: var(--text); font-weight: 600; }
+    .explainer-content code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+
+    .schema-flow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+    .schema-box {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      border-radius: 4px;
+    }
+    .schema-box.highlight {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .schema-arrow { color: var(--text-muted); font-size: 1.2rem; }
+
+    /* ---- TOC ---- */
+    .toc {
+      border: 1px solid var(--border);
+      background: var(--bg-raised);
+      padding: 28px 32px;
+      margin-bottom: 80px;
+    }
+    .toc-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .toc-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 8px;
+    }
+    .toc-list a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color var(--transition);
+    }
+    .toc-list a:hover { color: var(--accent); }
+    .toc-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      width: 20px;
+    }
+
+    /* ---- FOOTER ---- */
+    .site-footer {
+      margin-top: 80px;
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .footer-text a {
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-text a:hover { color: var(--accent); }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .nav-links-desktop { display: none; }
+      .nav-hamburger { display: flex; margin-left: auto; }
+      .nav-theme-toggle { margin-left: 0; margin-right: 8px; }
+    }
+    @media (max-width: 768px) {
+      .container { padding-left: 20px; padding-right: 20px; }
+      .hero { padding-top: calc(56px + 40px); padding-bottom: 48px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .concept-header { gap: 10px; }
+      .variant-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .protocol-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .explainer-header { padding: 20px 24px; }
+      .explainer-content { padding: 0 24px 24px; }
+      .schema-flow { gap: 8px; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .format-name { width: 80px; font-size: 0.7rem; }
+      .nav-wordmark { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ---- ANIMATIONS ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="grain"></div>
+
+  <!-- NAV (matches ethux.design) -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner container">
+      <a href="https://ethux.design" class="nav-home" aria-label="EthUX home">
+        <svg viewBox="0 0 256 417" fill="none"><path d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" fill="currentColor"/><path d="M127.962 0L0 212.32l127.962 75.639V154.158z" fill="currentColor"/><path d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z" fill="currentColor"/><path d="M127.962 416.905v-104.72L0 236.585z" fill="currentColor"/></svg>
+        <span class="nav-wordmark">EthUX</span>
+      </a>
+      <div class="nav-links-desktop">
+        <a href="https://ethux.design/#/">UX Map</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger">For Builders <svg class="nav-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav-dropdown-menu">
+            <a href="https://ethux.design/#/checklists">Checklists</a>
+            <a href="https://ethux.design/#/agents">Skill Files</a>
+          </div>
+        </div>
+        <a href="https://ethux.design/#/insights">Insights</a>
+        <a href="https://ethux.paperform.co/" target="_blank" rel="noopener noreferrer" class="nav-external">Submit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+      </div>
+      <button class="nav-theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="https://ethux.design/#/">UX Map</a>
+    <span class="mobile-menu-label">For Builders</span>
+    <a href="https://ethux.design/#/checklists" class="mobile-menu-sub">Checklists</a>
+    <a href="https://ethux.design/#/agents" class="mobile-menu-sub">Skill Files</a>
+    <a href="https://ethux.design/#/insights">Insights</a>
+    <a href="https://ethux.paperform.co/" target="_blank" rel="noopener noreferrer" class="nav-external">Submit</a>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero container">
+    <div class="hero-eyebrow">ERC-7730 Registry Analysis</div>
+    <h1 class="hero-title">How consistent is the<br>clear signing experience?</h1>
+    <p class="hero-desc">An audit of every human-readable label in Ledger's ERC-7730 clear signing registry. 44 protocols, 355 descriptor files, 394 unique labels. The question: when users sign transactions across different dApps, are they seeing a unified language or a scattered mess?</p>
+  </header>
+
+  <main class="container">
+
+    <!-- STATS -->
+    <div class="stats-row reveal">
+      <div class="stat-card">
+        <div class="stat-value">44</div>
+        <div class="stat-label">Protocols</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">355</div>
+        <div class="stat-label">Descriptor files</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value red">394</div>
+        <div class="stat-label">Unique labels</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value amber">251</div>
+        <div class="stat-label">Unique intents</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">1,022</div>
+        <div class="stat-label">Total label occurrences</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value accent">~30</div>
+        <div class="stat-label">Underlying concepts</div>
+      </div>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc reveal">
+      <div class="toc-title">Contents</div>
+      <ol class="toc-list">
+        <li><a href="#explainer"><span class="toc-num">01</span> What is clear signing?</a></li>
+        <li><a href="#inconsistencies"><span class="toc-num">02</span> Label inconsistencies</a></li>
+        <li><a href="#intents"><span class="toc-num">03</span> Intent inconsistencies</a></li>
+        <li><a href="#offenders"><span class="toc-num">04</span> Worst quality offenders</a></li>
+        <li><a href="#formats"><span class="toc-num">05</span> Format distribution</a></li>
+        <li><a href="#good"><span class="toc-num">06</span> What works well</a></li>
+        <li><a href="#protocols"><span class="toc-num">07</span> Full protocol breakdown</a></li>
+      </ol>
+    </div>
+
+    <!-- EXPLAINER (collapsible, collapsed by default) -->
+    <section id="explainer" class="explainer reveal" data-collapsible>
+      <div class="explainer-header" onclick="this.parentElement.classList.toggle('open')">
+        <h2 class="explainer-title">What is clear signing?</h2>
+        <svg class="explainer-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="explainer-body">
+        <div class="explainer-body-inner">
+          <div class="explainer-content">
+            <p>Without clear signing, hardware wallet users see raw hexadecimal data when approving transactions. A <code>uint256</code> named <code>_value</code> carries no hint that it should display as "100 USDT" instead of <code>100000000</code>. Users are effectively signing blind.</p>
+            <p><strong>ERC-7730</strong> is a JSON descriptor format that tells wallets how to present transaction data in human-readable form. Each descriptor defines an <strong>intent</strong> (the headline action like "Swap" or "Repay loan"), <strong>labels</strong> (field names like "Amount to Send"), and <strong>formats</strong> (how to render values with proper decimals, token symbols, dates).</p>
+            <p>The <strong>Ledger registry</strong> is where dApp teams submit these descriptors via pull request. They are imported into Ledger device firmware and used whenever a user signs a transaction for a registered contract.</p>
+
+            <div class="schema-flow">
+              <div class="schema-box">dApp submits JSON</div>
+              <span class="schema-arrow">&rarr;</span>
+              <div class="schema-box">Registry PR review</div>
+              <span class="schema-arrow">&rarr;</span>
+              <div class="schema-box">Ledger firmware</div>
+              <span class="schema-arrow">&rarr;</span>
+              <div class="schema-box highlight">User sees labels on device</div>
+            </div>
+
+            <p>The key fields that control what users see:</p>
+            <p><code>intent</code> is the headline. "Swap", "Supply", "Repay loan". <code>label</code> on each field is the name next to the value. "Amount to Send", "Beneficiary". <code>format</code> determines rendering: <code>tokenAmount</code> shows "100 USDT", <code>addressName</code> resolves ENS, <code>date</code> converts timestamps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEMANTIC INCONSISTENCIES (sorted: critical first, then high, then medium) -->
+    <section id="inconsistencies" class="section reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Label analysis</div>
+        <h2 class="section-title">394 labels for ~30 concepts</h2>
+        <p class="section-desc">The same underlying concept is expressed with wildly different labels across protocols. Each group below shows a single concept and every label variant used to describe it.</p>
+      </div>
+
+      <!-- CRITICAL: Amount sent (17 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Amount being sent/paid</span>
+            <span class="concept-count">17 variants</span>
+          </div>
+          <span class="concept-severity severity-critical">Critical</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/circle/eip712-ReceiveWithAuthorization.json#L50" target="_blank" rel="noopener">Circle</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/degate/eip712-degate.json#L97" target="_blank" rel="noopener">DeGate</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ethena/calldata-ethena.json#L56" target="_blank" rel="noopener">Ethena</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-RewardManager-Flare.json#L1079" target="_blank" rel="noopener">Flare</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/hyperliquid/calldata-CctpExtension.json#L60" target="_blank" rel="noopener">Hyperliquid</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-stETH.json#L27" target="_blank" rel="noopener">Lido</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/midas/calldata-MinterVault.json#L142" target="_blank" rel="noopener">Midas</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L552" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L221" target="_blank" rel="noopener">Swell</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swissborg/calldata-NttManager.json#L725" target="_blank" rel="noopener">SwissBorg</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-stakeweight.json#L131" target="_blank" rel="noopener">WalletConnect</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/weth/calldata-weth.json#L14" target="_blank" rel="noopener">WETH</a></td></tr>
+                <tr><td class="label-cell">Amount to Send</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV3.json#L25" target="_blank" rel="noopener">1inch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1289" target="_blank" rel="noopener">Celo</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5157" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L777" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L433" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L377" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L19" target="_blank" rel="noopener">QuickSwap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L22" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Amount to send</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5218" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/eip712-Velora-DeltaV2.json#L56" target="_blank" rel="noopener">Paraswap</a> (capitalization mismatch)</td></tr>
+                <tr><td class="label-cell">Send</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json#L68" target="_blank" rel="noopener">1inch</a> (EIP-712), <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L45" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">You pay with</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/midas/calldata-MinterVault.json#L141" target="_blank" rel="noopener">Midas</a></td></tr>
+                <tr><td class="label-cell">Swap</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/common-AggregationRouterV6.json#L62" target="_blank" rel="noopener">1inch</a> (calldata)</td></tr>
+                <tr><td class="label-cell">Payment</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/safe/common-Safe.json#L34" target="_blank" rel="noopener">Safe</a></td></tr>
+                <tr><td class="label-cell">Deposit</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1291" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">Wrap</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-DistributionToDelegators-Flare.json#L816" target="_blank" rel="noopener">Flare</a></td></tr>
+                <tr><td class="label-cell">CELO to Send</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1272" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">sAVAX amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/benqi/calldata-sAVAX.json#L60" target="_blank" rel="noopener">Benqi</a></td></tr>
+                <tr><td class="label-cell">stETH amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-wstETH.json#L43" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">wstETH amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-wstETH.json#L56" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">CHSB Amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swissborg/calldata-ChsbToBorgMigrator.json#L255" target="_blank" rel="noopener">SwissBorg</a></td></tr>
+                <tr><td class="label-cell">CORE amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-coreagent.json#L50" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">Maker amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/eip712-paraswap.json#L73" target="_blank" rel="noopener">Paraswap</a></td></tr>
+                <tr><td class="label-cell">Amount to sell</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/common-AggregationRouterV6.json#L44" target="_blank" rel="noopener">1inch</a> (definitions)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CRITICAL: Recipient (11 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Who receives the output</span>
+            <span class="concept-count">11 variants</span>
+          </div>
+          <span class="concept-severity severity-critical">Critical</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Recipient</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1273" target="_blank" rel="noopener">Celo</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-DistributionToDelegators-Flare.json#L809" target="_blank" rel="noopener">Flare</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-stETH.json#L46" target="_blank" rel="noopener">Lido</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5169" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L778" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/opencover/calldata-Quote.json#L55" target="_blank" rel="noopener">OpenCover</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/starkgate/calldata-StarkGate-STRK.json#L21" target="_blank" rel="noopener">StarkGate</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L120" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Receiver</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ethena/calldata-ethena.json#L90" target="_blank" rel="noopener">Ethena</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ledgerquest/eip712-ledgerquest.json#L33" target="_blank" rel="noopener">LedgerQuest</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5198" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/midas/calldata-MinterVault.json#L149" target="_blank" rel="noopener">Midas</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/morpho/calldata-MorphoBlue.json#L679" target="_blank" rel="noopener">Morpho</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/poap/calldata-PoapBridge.json#L222" target="_blank" rel="noopener">POAP</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/serenita/calldata-EthVault.json#L170" target="_blank" rel="noopener">Serenita</a></td></tr>
+                <tr><td class="label-cell">Beneficiary</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV3.json#L35" target="_blank" rel="noopener">1inch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_accounts.json#L1232" target="_blank" rel="noopener">Celo</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-RewardManager-Flare.json#L1104" target="_blank" rel="noopener">Flare</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L30" target="_blank" rel="noopener">Lido</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L442" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L397" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L21" target="_blank" rel="noopener">QuickSwap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L34" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">To</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json#L70" target="_blank" rel="noopener">1inch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/circle/eip712-ReceiveWithAuthorization.json#L46" target="_blank" rel="noopener">Circle</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/degate/eip712-degate.json#L100" target="_blank" rel="noopener">DeGate</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L144" target="_blank" rel="noopener">Lido</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L258" target="_blank" rel="noopener">Swell</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-wct.json#L48" target="_blank" rel="noopener">WalletConnect</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-usde-vault.json#L73" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">To recipient</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-WrappedTokenGatewayV3.json#L135" target="_blank" rel="noopener">Aave</a></td></tr>
+                <tr><td class="label-cell">You receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/midas/calldata-RedemptionVault.json#L146" target="_blank" rel="noopener">Midas</a></td></tr>
+                <tr><td class="label-cell">You will receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/midas/calldata-RedemptionVault.json#L185" target="_blank" rel="noopener">Midas</a> (different file, same protocol)</td></tr>
+                <tr><td class="label-cell">ETH recipient</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L113" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">HyperEVM recipient</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/hyperliquid/calldata-CctpExtension.json#L90" target="_blank" rel="noopener">Hyperliquid</a></td></tr>
+                <tr><td class="label-cell">Mint recipient</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/hyperliquid/calldata-CctpExtension.json#L72" target="_blank" rel="noopener">Hyperliquid</a></td></tr>
+                <tr><td class="label-cell">Rewards receiver</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/serenita/calldata-EthVault.json#L155" target="_blank" rel="noopener">Serenita</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- CRITICAL: Deadline (12 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Signature expiry / deadline</span>
+            <span class="concept-count">12 variants</span>
+          </div>
+          <span class="concept-severity severity-critical">Critical</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Deadline</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L443" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L22" target="_blank" rel="noopener">QuickSwap</a></td></tr>
+                <tr><td class="label-cell">deadline</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lens/eip712-lens-lenshub.json#L597" target="_blank" rel="noopener">Lens</a> (lowercase)</td></tr>
+                <tr><td class="label-cell">Expiry</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/eip712-network-fee-authorization-mainnet.json#L31" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/tally/eip712-tally-arbitrum-arb-token.json#L31" target="_blank" rel="noopener">Tally</a></td></tr>
+                <tr><td class="label-cell">Expiration time</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/eip712-Velora-DeltaV2.json#L60" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV5.json#L40" target="_blank" rel="noopener">1inch</a></td></tr>
+                <tr><td class="label-cell">Expiration Date</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/dispatch/eip712-dispatch.json#L38" target="_blank" rel="noopener">Dispatch</a></td></tr>
+                <tr><td class="label-cell">Expiration Time</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/poap/calldata-PoapBridge.json#L223" target="_blank" rel="noopener">POAP</a></td></tr>
+                <tr><td class="label-cell">signatureDeadline</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lens/eip712-lens-lenshub.json#L476" target="_blank" rel="noopener">Lens</a> (camelCase, untransformed)</td></tr>
+                <tr><td class="label-cell">ValidUntil</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/degate/eip712-degate.json#L87" target="_blank" rel="noopener">DeGate</a> (PascalCase, no space)</td></tr>
+                <tr><td class="label-cell">Valid Until</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L751" target="_blank" rel="noopener">Lombard</a></td></tr>
+                <tr><td class="label-cell">Approval expire</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-UniswapX-DutchOrder.json#L76" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Approval expires</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-uniswap-permit2.json#L60" target="_blank" rel="noopener">Uniswap</a> (plural vs singular, same protocol)</td></tr>
+                <tr><td class="label-cell">Valid before</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/circle/eip712-ReceiveWithAuthorization.json#L52" target="_blank" rel="noopener">Circle</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- HIGH: Minimum received (8 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Minimum received (slippage protection)</span>
+            <span class="concept-count">8 variants</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Minimum to Receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV3.json#L30" target="_blank" rel="noopener">1inch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5163" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L438" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L460" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L20" target="_blank" rel="noopener">QuickSwap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L28" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Minimum to receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/eip712-Velora-DeltaV2.json#L57" target="_blank" rel="noopener">Paraswap</a> (capitalization mismatch)</td></tr>
+                <tr><td class="label-cell">Minimum amount</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L97" target="_blank" rel="noopener">QuickSwap</a></td></tr>
+                <tr><td class="label-cell">Minimum amounts to receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-UniswapX-DutchOrder.json#L72" target="_blank" rel="noopener">Uniswap</a> (plural)</td></tr>
+                <tr><td class="label-cell">Min amount to receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-UniswapX-LimitOrder.json#L59" target="_blank" rel="noopener">Uniswap</a> (abbreviated)</td></tr>
+                <tr><td class="label-cell">Receive minimum</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/eip712-1inch-limit-order.json#L69" target="_blank" rel="noopener">1inch</a> (reversed word order)</td></tr>
+                <tr><td class="label-cell">Amount to Receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L392" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L52" target="_blank" rel="noopener">QuickSwap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L74" target="_blank" rel="noopener">Uniswap</a> (ambiguous: also used for exact output)</td></tr>
+                <tr><td class="label-cell">Minimum Amount to receive</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5145" target="_blank" rel="noopener">LiFi</a> (definition)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- HIGH: Spender / approval (6 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Token approval / spender</span>
+            <span class="concept-count">6 variants</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Spender</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-stETH.json#L21" target="_blank" rel="noopener">Lido</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L725" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L214" target="_blank" rel="noopener">Swell</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-uniswap-permit2.json#L58" target="_blank" rel="noopener">Uniswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-wct.json#L55" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Approve to spender</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-UniswapX-DutchOrder.json#L56" target="_blank" rel="noopener">Uniswap</a> (Permit2)</td></tr>
+                <tr><td class="label-cell">Allowance</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L750" target="_blank" rel="noopener">Lombard</a></td></tr>
+                <tr><td class="label-cell">Amount to Approve</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L724" target="_blank" rel="noopener">Lombard</a></td></tr>
+                <tr><td class="label-cell">Amount allowance</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-UniswapX-LimitOrder.json#L51" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Approve</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv3.json#L616" target="_blank" rel="noopener">Aave</a> (used as label for boolean)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- HIGH: Interest rate (3 variants, same protocol) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Interest rate type (Aave internal)</span>
+            <span class="concept-count">3 variants, same protocol</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Interest rate mode</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv2.json#L35" target="_blank" rel="noopener">Aave LP v2</a>, LP v3 (repay)</td></tr>
+                <tr><td class="label-cell">Interest Rate mode</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv2.json#L103" target="_blank" rel="noopener">Aave LP v2</a> (borrow)</td></tr>
+                <tr><td class="label-cell">Current rate mode</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv2.json#L90" target="_blank" rel="noopener">Aave LP v2</a> (swapBorrowRateMode)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- MEDIUM: Nonce (5 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Nonce</span>
+            <span class="concept-count">5 variants</span>
+          </div>
+          <span class="concept-severity severity-medium">Medium</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Nonce</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/degate/eip712-degate.json#L88" target="_blank" rel="noopener">DeGate</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/dispatch/eip712-dispatch.json#L37" target="_blank" rel="noopener">Dispatch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/tally/eip712-tally-arbitrum-arb-token.json#L30" target="_blank" rel="noopener">Tally</a></td></tr>
+                <tr><td class="label-cell">nonce</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lens/eip712-lens-lenshub.json#L458" target="_blank" rel="noopener">Lens</a> (lowercase)</td></tr>
+                <tr><td class="label-cell">Nonce and metadata</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/eip712-paraswap.json#L67" target="_blank" rel="noopener">Paraswap</a></td></tr>
+                <tr><td class="label-cell">Meta Transaction Nonce</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/rarible/eip712-rarible-exchange-v2.json#L81" target="_blank" rel="noopener">Rarible</a></td></tr>
+                <tr><td class="label-cell">Unbond nonce</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-pol-validator.json#L76" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <!-- MEDIUM: Proposal ID (3 variants) -->
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Governance proposal reference</span>
+            <span class="concept-count">3 variants</span>
+          </div>
+          <span class="concept-severity severity-medium">Medium</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Label</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Proposal ID</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1254" target="_blank" rel="noopener">Celo</a> (uppercase ID)</td></tr>
+                <tr><td class="label-cell">Proposal Id</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-PollingFoundation-Flare.json#L694" target="_blank" rel="noopener">Flare</a> (mixed case)</td></tr>
+                <tr><td class="label-cell">Proposal id</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/tally/eip712-tally-arbitrum-core-governor.json#L29" target="_blank" rel="noopener">Tally</a> (lowercase id)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+    </section>
+
+
+    <!-- INTENT INCONSISTENCIES -->
+    <section id="intents" class="section reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Intent analysis</div>
+        <h2 class="section-title">251 intents for ~15 actions</h2>
+        <p class="section-desc">The intent is the headline users see before field details: "Swap", "Repay loan", "Stake ETH". Different protocols describe the same action with different wording, different casing, and different levels of specificity.</p>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Staking / depositing assets</span>
+            <span class="concept-count">16 variants</span>
+          </div>
+          <span class="concept-severity severity-critical">Critical</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Stake ETH</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/consensus-specs/calldata-DepositContract.json#L84" target="_blank" rel="noopener">Consensus-specs</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/figment/calldata-figment-batch-deposit.json#L119" target="_blank" rel="noopener">Figment</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-stETH.json#L37" target="_blank" rel="noopener">Lido</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/p2p/calldata-P2pOrgUnlimitedEthDepositor.json#L407" target="_blank" rel="noopener">P2P</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/serenita/calldata-EthVault.json#L152" target="_blank" rel="noopener">Serenita</a></td></tr>
+                <tr><td class="label-cell">Stake AVAX</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/benqi/calldata-sAVAX.json#L51" target="_blank" rel="noopener">Benqi</a></td></tr>
+                <tr><td class="label-cell">Stake CORE</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-corestake.json#L32" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">Stake POL</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-pol-validator.json#L49" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Stake 32ETH per validators</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/kiln/calldata-kiln-batch-deposit-v2.json#L86" target="_blank" rel="noopener">Kiln</a></td></tr>
+                <tr><td class="label-cell">Stake any amount per validator</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/kiln/calldata-kiln-batch-deposit-v2.json#L96" target="_blank" rel="noopener">Kiln</a></td></tr>
+                <tr><td class="label-cell">Stake ETH with SSV</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/p2p/calldata-P2pSsvProxyFactory.json#L1229" target="_blank" rel="noopener">P2P</a></td></tr>
+                <tr><td class="label-cell">Stake ETH with p2p</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/p2p/calldata-NativeTokenVault.json#L452" target="_blank" rel="noopener">P2P</a></td></tr>
+                <tr><td class="label-cell">Supply</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-WrappedTokenGatewayV3.json#L89" target="_blank" rel="noopener">Aave</a></td></tr>
+                <tr><td class="label-cell">Supply on Morpho Market</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/morpho/calldata-MorphoBlue.json#L770" target="_blank" rel="noopener">Morpho</a></td></tr>
+                <tr><td class="label-cell">Supply Collateral on Morpho Market</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/morpho/calldata-MorphoBlue.json#L839" target="_blank" rel="noopener">Morpho</a></td></tr>
+                <tr><td class="label-cell">Deposit</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L263" target="_blank" rel="noopener">Swell</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-usde-vault.json#L42" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Deposit via Manager</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L255" target="_blank" rel="noopener">Swell</a></td></tr>
+                <tr><td class="label-cell">Lock CELO</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-locked_celo.json#L642" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">Lock Tokens</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-stakeweight.json#L127" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Lock tokens</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-stakeweight.json#L140" target="_blank" rel="noopener">WalletConnect</a> (case mismatch, same protocol)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Unstaking / withdrawing</span>
+            <span class="concept-count">24 variants</span>
+          </div>
+          <span class="concept-severity severity-critical">Critical</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Withdraw</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-WrappedTokenGatewayV3.json#L119" target="_blank" rel="noopener">Aave</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1348" target="_blank" rel="noopener">Celo</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-usde-vault.json#L65" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Withdraw All</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-stakeweight.json#L182" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Withdraw CELO</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-locked_celo.json#L682" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">Withdraw CORE</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-corestake.json#L56" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">Withdraw from Morpho Market</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/morpho/calldata-MorphoBlue.json#L906" target="_blank" rel="noopener">Morpho</a></td></tr>
+                <tr><td class="label-cell">Withdraw Collateral from Morpho Market</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/morpho/calldata-MorphoBlue.json#L982" target="_blank" rel="noopener">Morpho</a></td></tr>
+                <tr><td class="label-cell">Withdraw POL rewards</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-pol-validator.json#L79" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Unstake</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ethena/calldata-ethena.json#L85" target="_blank" rel="noopener">Ethena</a></td></tr>
+                <tr><td class="label-cell">Unstake CORE</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-coreagent.json#L55" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">Unstake POL</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-pol-validator.json#L62" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Redeem</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L758" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-usde-vault.json#L79" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Redeem BTC</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L765" target="_blank" rel="noopener">Lombard</a></td></tr>
+                <tr><td class="label-cell">Redeem sAVAX</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/benqi/calldata-sAVAX.json#L78" target="_blank" rel="noopener">Benqi</a></td></tr>
+                <tr><td class="label-cell">Redeem Overdue</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/benqi/calldata-sAVAX.json#L76" target="_blank" rel="noopener">Benqi</a></td></tr>
+                <tr><td class="label-cell">Request Redeem</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-corestake.json#L45" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">Request Withdrawal</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L21" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Request withdrawal</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L59" target="_blank" rel="noopener">Lido</a> (case mismatch, same protocol)</td></tr>
+                <tr><td class="label-cell">Request unstaking</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/benqi/calldata-sAVAX.json#L57" target="_blank" rel="noopener">Benqi</a></td></tr>
+                <tr><td class="label-cell">request a redemption</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/midas/calldata-RedemptionVault.json#L183" target="_blank" rel="noopener">Midas</a> (lowercase)</td></tr>
+                <tr><td class="label-cell">Cooldown Assets</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ethena/calldata-ethena.json#L68" target="_blank" rel="noopener">Ethena</a></td></tr>
+                <tr><td class="label-cell">Cooldown Shares</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ethena/calldata-ethena.json#L51" target="_blank" rel="noopener">Ethena</a></td></tr>
+                <tr><td class="label-cell">claim withdrawal</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L97" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">claim withdrawals</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L103" target="_blank" rel="noopener">Lido</a> (plural, same protocol)</td></tr>
+                <tr><td class="label-cell">Claim exited assets</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/p2p/calldata-NativeTokenVault.json#L510" target="_blank" rel="noopener">P2P</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Approving / authorizing spending</span>
+            <span class="concept-count">14 variants</span>
+          </div>
+          <span class="concept-severity severity-critical">Critical</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Approve</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_governance.json#L1252" target="_blank" rel="noopener">Celo</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L722" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-wct.json#L53" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Approve Manager</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/aave/calldata-lpv3.json#L613" target="_blank" rel="noopener">Aave</a></td></tr>
+                <tr><td class="label-cell">Approve spender</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L218" target="_blank" rel="noopener">Swell</a></td></tr>
+                <tr><td class="label-cell">Approve stETH</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-stETH.json#L18" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Approve unstETH NFT</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L123" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Approve unstETH NFTs</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L175" target="_blank" rel="noopener">Lido</a> (plural, same protocol)</td></tr>
+                <tr><td class="label-cell">Approve Safe hash</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/safe/common-Safe.json#L183" target="_blank" rel="noopener">Safe</a></td></tr>
+                <tr><td class="label-cell">Authorize spending</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-wstETH.json#L21" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Authorize spending of token</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-uniswap-permit2.json#L56" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Authorize spending of tokens</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/eip712-uniswap-permit2.json#L68" target="_blank" rel="noopener">Uniswap</a> (plural, same protocol)</td></tr>
+                <tr><td class="label-cell">Authorize USDC transfer</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/circle/eip712-ReceiveWithAuthorization.json#L41" target="_blank" rel="noopener">Circle</a></td></tr>
+                <tr><td class="label-cell">Authorize Signer</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_accounts.json#L1004" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">Authorize Validator</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_accounts.json#L1049" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">Authorize &amp; Set Vote</td><td class="protocol-cell">Celo</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Swapping / trading</span>
+            <span class="concept-count">5 variants</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Swap</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV3.json#L40" target="_blank" rel="noopener">1inch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5153" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L450" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L404" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L17" target="_blank" rel="noopener">QuickSwap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L18" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">swap</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L43" target="_blank" rel="noopener">Uniswap</a> (lowercase, same protocol)</td></tr>
+                <tr><td class="label-cell">Buy</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L497" target="_blank" rel="noopener">Paraswap</a></td></tr>
+                <tr><td class="label-cell">Fill order</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/common-AggregationRouterV6.json#L251" target="_blank" rel="noopener">1inch</a></td></tr>
+                <tr><td class="label-cell">Swap order</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/eip712-Velora-DeltaV2.json#L54" target="_blank" rel="noopener">Paraswap</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Sending / transferring</span>
+            <span class="concept-count">7 variants</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Send</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L775" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-wct.json#L45" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Transfer</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L785" target="_blank" rel="noopener">Lombard</a></td></tr>
+                <tr><td class="label-cell">Transfer Tokens</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L289" target="_blank" rel="noopener">Swell</a></td></tr>
+                <tr><td class="label-cell">Transfer From</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swell/calldata-swell.json#L296" target="_blank" rel="noopener">Swell</a></td></tr>
+                <tr><td class="label-cell">Transfer stETH</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-stETH.json#L43" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Transfer wstETH</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-wstETH.json#L66" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Transfer unstETH NFT</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L135" target="_blank" rel="noopener">Lido</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Bridging cross-chain</span>
+            <span class="concept-count">3 variants</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Bridge</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/starkgate/calldata-StarkGate-STRK.json#L18" target="_blank" rel="noopener">StarkGate</a></td></tr>
+                <tr><td class="label-cell">Bridge BORG</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/swissborg/calldata-NttManager.json#L721" target="_blank" rel="noopener">SwissBorg</a></td></tr>
+                <tr><td class="label-cell">Bridge USDC via CCTP</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/hyperliquid/calldata-CctpExtension.json#L56" target="_blank" rel="noopener">Hyperliquid</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Claiming rewards / withdrawals</span>
+            <span class="concept-count">9 variants</span>
+          </div>
+          <span class="concept-severity severity-high">High</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Claim rewards</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-stakehub.json#L18" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">claim rewards</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-DistributionToDelegators-Flare.json#L796" target="_blank" rel="noopener">Flare</a> (lowercase)</td></tr>
+                <tr><td class="label-cell">Claim/Wrap Reward</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-ValidatorRewardManager-Flare.json#L588" target="_blank" rel="noopener">Flare</a></td></tr>
+                <tr><td class="label-cell">batch claims rewards</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-DistributionToDelegators-Flare.json#L823" target="_blank" rel="noopener">Flare</a> (lowercase, grammatically odd)</td></tr>
+                <tr><td class="label-cell">Claim unstaked AVAX</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/benqi/calldata-sAVAX.json#L69" target="_blank" rel="noopener">Benqi</a></td></tr>
+                <tr><td class="label-cell">Claim unstaked POL</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-pol-validator.json#L75" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">Claim exited assets</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/p2p/calldata-NativeTokenVault.json#L510" target="_blank" rel="noopener">P2P</a></td></tr>
+                <tr><td class="label-cell">claim exited assets</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/serenita/calldata-EthVault.json#L146" target="_blank" rel="noopener">Serenita</a> (lowercase, same meaning)</td></tr>
+                <tr><td class="label-cell">claim withdrawal</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L97" target="_blank" rel="noopener">Lido</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="concept-group" data-concept>
+        <div class="concept-header" onclick="this.parentElement.classList.toggle('open')">
+          <div class="concept-left">
+            <span class="concept-name">Case inconsistencies (identical meaning)</span>
+            <span class="concept-count">8 pairs</span>
+          </div>
+          <span class="concept-severity severity-medium">Medium</span>
+          <svg class="concept-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="concept-body"><div class="concept-body-inner">
+          <div class="concept-content">
+            <table class="variant-table">
+              <thead><tr><th>Intent</th><th>Used by</th></tr></thead>
+              <tbody>
+                <tr><td class="label-cell">Swap</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/1inch/calldata-AggregationRouterV3.json#L40" target="_blank" rel="noopener">1inch</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lifi/calldata-LIFIDiamond.json#L5153" target="_blank" rel="noopener">LiFi</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/okx/calldata-OkxDexRouterV1.0.8-suffix-compat.json#L450" target="_blank" rel="noopener">OKX</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/paraswap/calldata-AugustusSwapper-v5.json#L404" target="_blank" rel="noopener">Paraswap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/quickswap/calldata-QuickSwap.json#L17" target="_blank" rel="noopener">QuickSwap</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L18" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">swap</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/uniswap/calldata-UniswapV3Router02.json#L43" target="_blank" rel="noopener">Uniswap</a></td></tr>
+                <tr><td class="label-cell">Mint</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/ledgerquest/eip712-ledgerquest.json#L31" target="_blank" rel="noopener">LedgerQuest</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L739" target="_blank" rel="noopener">Lombard</a>, <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/yieldxyz/calldata-yieldxyz-usde-vault.json#L56" target="_blank" rel="noopener">YieldXYZ</a></td></tr>
+                <tr><td class="label-cell">mint</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lens/eip712-lens-lenshub.json#L546" target="_blank" rel="noopener">Lens</a></td></tr>
+                <tr><td class="label-cell">Burn</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lombard/calldata-lbtc-mainnet.json#L732" target="_blank" rel="noopener">Lombard</a></td></tr>
+                <tr><td class="label-cell">burn</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lens/eip712-lens-lenshub.json#L449" target="_blank" rel="noopener">Lens</a></td></tr>
+                <tr><td class="label-cell">Lock Tokens</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-stakeweight.json#L127" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Lock tokens</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/walletconnect/calldata-stakeweight.json#L140" target="_blank" rel="noopener">WalletConnect</a></td></tr>
+                <tr><td class="label-cell">Request Withdrawal</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L21" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Request withdrawal</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/lido/calldata-WithdrawalQueueERC721.json#L59" target="_blank" rel="noopener">Lido</a></td></tr>
+                <tr><td class="label-cell">Claim rewards</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/corestake/calldata-stakehub.json#L18" target="_blank" rel="noopener">CoreStake</a></td></tr>
+                <tr><td class="label-cell">claim rewards</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/flare/calldata-DistributionToDelegators-Flare.json#L796" target="_blank" rel="noopener">Flare</a></td></tr>
+                <tr><td class="label-cell">Claim exited assets</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/p2p/calldata-NativeTokenVault.json#L510" target="_blank" rel="noopener">P2P</a></td></tr>
+                <tr><td class="label-cell">claim exited assets</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/serenita/calldata-EthVault.json#L146" target="_blank" rel="noopener">Serenita</a></td></tr>
+                <tr><td class="label-cell">Remove Signer</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/celo/calldata-celo_accounts.json#L1135" target="_blank" rel="noopener">Celo</a></td></tr>
+                <tr><td class="label-cell">Remove signer</td><td class="protocol-cell"><a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry/blob/master/registry/safe/common-Safe.json#L132" target="_blank" rel="noopener">Safe</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div></div>
+      </div>
+
+    </section>
+
+
+    <!-- WORST OFFENDERS -->
+    <section id="offenders" class="section reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Quality audit</div>
+        <h2 class="section-title">Worst quality offenders</h2>
+        <p class="section-desc">Protocols where the clear signing labels would actively confuse or mislead users on the hardware wallet screen.</p>
+      </div>
+
+      <div class="offender-card">
+        <div class="offender-header">
+          <div class="offender-rank">1</div>
+          <span class="offender-name">Lens Protocol</span>
+          <span class="concept-severity severity-critical">Critical</span>
+        </div>
+        <p class="offender-issue">25+ raw Solidity variable names used directly as labels with zero human-friendly transformation. Users would see camelCase and snake_case developer names on their Ledger screen.</p>
+        <div class="offender-examples">
+          <span class="label-tag bad">profileId</span>
+          <span class="label-tag bad">profile_id_pointed</span>
+          <span class="label-tag bad">pubid_pointed</span>
+          <span class="label-tag bad">publicationCollectedProfileId</span>
+          <span class="label-tag bad">signatureDeadline</span>
+          <span class="label-tag bad">metadataURI</span>
+          <span class="label-tag bad">followModule</span>
+          <span class="label-tag bad">byProfileId</span>
+          <span class="label-tag bad">actorProfileId</span>
+          <span class="label-tag bad">contentURI</span>
+          <span class="label-tag bad">handleId</span>
+          <span class="label-tag bad">configNumber</span>
+        </div>
+      </div>
+
+      <div class="offender-card">
+        <div class="offender-header">
+          <div class="offender-rank">2</div>
+          <span class="offender-name">Aave</span>
+          <span class="concept-severity severity-high">High</span>
+        </div>
+        <p class="offender-issue">Inconsistent within itself. Three different capitalizations of the same field ("Interest rate mode" / "Interest Rate mode" / "Current rate mode") across three files within the same protocol.</p>
+        <div class="offender-examples">
+          <span class="label-tag bad">Interest rate mode</span>
+          <span class="label-tag bad">Interest Rate mode</span>
+          <span class="label-tag bad">Current rate mode</span>
+        </div>
+      </div>
+
+      <div class="offender-card">
+        <div class="offender-header">
+          <div class="offender-rank">3</div>
+          <span class="offender-name">Rarible</span>
+          <span class="concept-severity severity-high">High</span>
+        </div>
+        <p class="offender-issue">Internal encoding logic leaked into label strings. Basis-point math explanation baked into what users see, rather than handled by the format system.</p>
+        <div class="offender-examples">
+          <span class="label-tag bad">Creator value (10000 = 100%)</span>
+          <span class="label-tag bad">Royalties value (10000 = 100%)</span>
+        </div>
+      </div>
+
+      <div class="offender-card">
+        <div class="offender-header">
+          <div class="offender-rank">4</div>
+          <span class="offender-name">DeGate</span>
+          <span class="concept-severity severity-medium">Medium</span>
+        </div>
+        <p class="offender-issue">PascalCase variable names used as labels without spaces. "ValidUntil" instead of "Valid until", "TokenID" instead of "Token ID", "FeeTokenID" instead of "Fee token".</p>
+        <div class="offender-examples">
+          <span class="label-tag bad">ValidUntil</span>
+          <span class="label-tag bad">TokenID</span>
+          <span class="label-tag bad">FeeTokenID</span>
+          <span class="label-tag bad">AccountID</span>
+          <span class="label-tag bad">StorageID</span>
+          <span class="label-tag bad">MaxFee</span>
+          <span class="label-tag bad">PublicKey</span>
+        </div>
+      </div>
+
+      <div class="offender-card">
+        <div class="offender-header">
+          <div class="offender-rank">5</div>
+          <span class="offender-name">9 files with zero labels</span>
+          <span class="concept-severity severity-critical">Critical</span>
+        </div>
+        <p class="offender-issue">Operations defined but no human-readable labels provided. Users would see raw hex on the device, completely defeating the purpose of clear signing.</p>
+        <div class="offender-examples">
+          <span class="label-tag bad">1inch Router V3</span>
+          <span class="label-tag bad">1inch Router V4</span>
+          <span class="label-tag bad">1inch Router V5</span>
+          <span class="label-tag bad">1inch Router V6</span>
+          <span class="label-tag bad">CoreStake Hub</span>
+          <span class="label-tag bad">MakerDAO Permit</span>
+          <span class="label-tag bad">Paraswap v6.2</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMAT DISTRIBUTION -->
+    <section id="formats" class="section reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Data types</div>
+        <h2 class="section-title">Format distribution</h2>
+        <p class="section-desc">How values are rendered on the wallet screen. <code>raw</code> means the value is shown as-is (hex, bytes, integers) with no formatting. The high raw count signals many fields where users see opaque data.</p>
+      </div>
+
+      <div style="max-width:720px;">
+        <div class="format-bar-row">
+          <span class="format-name">raw</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:100%;background:var(--red);opacity:0.7;"></div></div>
+          <span class="format-count">406</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">addressName</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:67.2%;background:var(--accent);"></div></div>
+          <span class="format-count">273</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">tokenAmount</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:39.2%;background:var(--green);"></div></div>
+          <span class="format-count">159</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">amount</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:15%;background:var(--accent-secondary);"></div></div>
+          <span class="format-count">61</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">date</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:11.1%;background:var(--purple);"></div></div>
+          <span class="format-count">45</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">unit</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:8.6%;background:var(--amber);"></div></div>
+          <span class="format-count">35</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">calldata</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:3.4%;background:var(--blue);"></div></div>
+          <span class="format-count">14</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">enum</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:3.9%;background:var(--cyan);"></div></div>
+          <span class="format-count">16</span>
+        </div>
+        <div class="format-bar-row">
+          <span class="format-name">duration</span>
+          <div class="format-bar-track"><div class="format-bar-fill" style="width:3%;background:var(--text-muted);"></div></div>
+          <span class="format-count">12</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WORKS WELL -->
+    <section id="good" class="section reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Positive patterns</div>
+        <h2 class="section-title">What works well</h2>
+        <p class="section-desc">Not everything is broken. These protocols demonstrate that consistent labeling is achievable at scale.</p>
+      </div>
+
+      <div class="good-card">
+        <span class="protocol-name">ERC-2612 Permit (87 files)</span>
+        <p>Perfectly consistent across every token: <span class="label-tag">Owner</span> <span class="label-tag">Spender</span> <span class="label-tag">Amount</span> <span class="label-tag">Deadline</span> <span class="label-tag">Nonce</span>. The same five labels, identically capitalized, across 87 files. This is the best-standardized UX pattern in the entire registry and proves that shared templates work.</p>
+      </div>
+
+      <div class="good-card">
+        <span class="protocol-name">Morpho / Kiln Vaults (100+ files)</span>
+        <p>Share common definitions via includes. Labels are uniform across all vault variants: <span class="label-tag">Assets</span> <span class="label-tag">Shares</span> <span class="label-tag">Owner</span>. The <code>includes</code> mechanism in ERC-7730 enables this reuse pattern.</p>
+      </div>
+
+      <div class="good-card">
+        <span class="protocol-name">Safe (25 files)</span>
+        <p>Thorough coverage across Safe 1.3.0, 1.4.1, 1.5.0, SafeL2, and SafeMigration. Sensible, actionable labels: <span class="label-tag">New Owner</span> <span class="label-tag">New threshold</span> <span class="label-tag">Transaction</span> <span class="label-tag">Module</span>. Descriptive without being verbose.</p>
+      </div>
+    </section>
+
+    <!-- FULL PROTOCOL BREAKDOWN -->
+    <section id="protocols" class="section reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">Complete registry</div>
+        <h2 class="section-title">Full protocol breakdown</h2>
+        <p class="section-desc">Every protocol in the registry with file counts and key labels used. Sorted by number of descriptor files.</p>
+      </div>
+
+      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+        <table class="protocol-table">
+          <thead>
+            <tr><th>Protocol</th><th>Files</th><th>Key labels</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="protocol-name">Morpho</td><td class="file-count">107</td><td><div class="label-list"><span class="label-tag">Assets</span><span class="label-tag">Shares</span><span class="label-tag">On Behalf</span><span class="label-tag">Loan Token</span><span class="label-tag">Collateral Token</span><span class="label-tag">Oracle</span><span class="label-tag">Lltv</span><span class="label-tag">Owner</span></div></td></tr>
+            <tr><td class="protocol-name">Permit</td><td class="file-count">87</td><td><div class="label-list"><span class="label-tag">Owner</span><span class="label-tag">Spender</span><span class="label-tag">Amount</span><span class="label-tag">Deadline</span><span class="label-tag">Nonce</span></div></td></tr>
+            <tr><td class="protocol-name">Kiln</td><td class="file-count">32</td><td><div class="label-list"><span class="label-tag">Shares</span><span class="label-tag">Assets</span><span class="label-tag">Owner</span><span class="label-tag">Spender</span><span class="label-tag">Allowance</span><span class="label-tag">Validators</span><span class="label-tag">New Owner</span><span class="label-tag">Role</span></div></td></tr>
+            <tr><td class="protocol-name">Safe</td><td class="file-count">25</td><td><div class="label-list"><span class="label-tag">Transaction</span><span class="label-tag">Gas price</span><span class="label-tag">Gas token</span><span class="label-tag">New Owner</span><span class="label-tag">New threshold</span><span class="label-tag">Module</span><span class="label-tag">Old signer</span><span class="label-tag">New signer</span></div></td></tr>
+            <tr><td class="protocol-name">Tally</td><td class="file-count">13</td><td><div class="label-list"><span class="label-tag">Proposal id</span><span class="label-tag">Support</span><span class="label-tag">Delegatee</span><span class="label-tag">Nonce</span><span class="label-tag">Expiry</span></div></td></tr>
+            <tr><td class="protocol-name">1inch</td><td class="file-count">11</td><td><div class="label-list"><span class="label-tag">Amount to Send</span><span class="label-tag">Receive amount</span><span class="label-tag">Beneficiary</span><span class="label-tag">From</span><span class="label-tag">Send</span><span class="label-tag">Receive minimum</span></div></td></tr>
+            <tr><td class="protocol-name">Uniswap</td><td class="file-count">7</td><td><div class="label-list"><span class="label-tag">Amount to Send</span><span class="label-tag">Beneficiary</span><span class="label-tag">Minimum to Receive</span><span class="label-tag">Approve to spender</span><span class="label-tag">Amount allowance</span><span class="label-tag">Approval expires</span></div></td></tr>
+            <tr><td class="protocol-name">Flare</td><td class="file-count">6</td><td><div class="label-list"><span class="label-tag">Reward Owner</span><span class="label-tag">Reward Amount</span><span class="label-tag">Beneficiary</span><span class="label-tag">Proposal Id</span><span class="label-tag">Voting Period</span><span class="label-tag">Threshold</span></div></td></tr>
+            <tr><td class="protocol-name">Celo</td><td class="file-count">5</td><td><div class="label-list"><span class="label-tag">Validator Group</span><span class="label-tag">Gold to Vote</span><span class="label-tag">Proposal ID</span><span class="label-tag">Vote</span><span class="label-tag">Amount to Lock</span><span class="label-tag">Delegatee</span></div></td></tr>
+            <tr><td class="protocol-name">P2P</td><td class="file-count">5</td><td><div class="label-list"><span class="label-tag">ETH per validator</span><span class="label-tag">Public keys</span><span class="label-tag">Amount to deposit</span><span class="label-tag">Withdraw credentials</span></div></td></tr>
+            <tr><td class="protocol-name">Paraswap</td><td class="file-count">4</td><td><div class="label-list"><span class="label-tag">Amount to Send</span><span class="label-tag">Minimum to Receive</span><span class="label-tag">Beneficiary</span><span class="label-tag">Maker amount</span><span class="label-tag">Taker amount</span><span class="label-tag">Expiration time</span></div></td></tr>
+            <tr><td class="protocol-name">Lido</td><td class="file-count">4</td><td><div class="label-list"><span class="label-tag">Amount to stake</span><span class="label-tag">Amount to withdraw</span><span class="label-tag">Spender</span><span class="label-tag">Recipient</span><span class="label-tag">stETH amount</span><span class="label-tag">wstETH amount</span></div></td></tr>
+            <tr><td class="protocol-name">Lombard</td><td class="file-count">4</td><td><div class="label-list"><span class="label-tag">Amount to Burn</span><span class="label-tag">Recipient</span><span class="label-tag">Network Fee</span><span class="label-tag">Valid Until</span><span class="label-tag">Amount to Approve</span></div></td></tr>
+            <tr><td class="protocol-name">Rarible</td><td class="file-count">4</td><td><div class="label-list"><span class="label-tag">Token ID</span><span class="label-tag">Token URI</span><span class="label-tag bad">Creator value (10000 = 100%)</span><span class="label-tag bad">Royalties value (10000 = 100%)</span></div></td></tr>
+            <tr><td class="protocol-name">Aave</td><td class="file-count">3</td><td><div class="label-list"><span class="label-tag">Amount to supply</span><span class="label-tag">Amount to repay</span><span class="label-tag">Amount to withdraw</span><span class="label-tag bad">Interest Rate mode</span><span class="label-tag bad">Interest rate mode</span></div></td></tr>
+            <tr><td class="protocol-name">CoreStake</td><td class="file-count">3</td><td><div class="label-list"><span class="label-tag">Amount to stake</span><span class="label-tag">Validator Address</span><span class="label-tag">Amount to Redeem</span><span class="label-tag">CORE amount</span></div></td></tr>
+            <tr><td class="protocol-name">SwissBorg</td><td class="file-count">3</td><td><div class="label-list"><span class="label-tag">CHSB Amount</span><span class="label-tag">Destination Address</span><span class="label-tag">Amount</span></div></td></tr>
+            <tr><td class="protocol-name">Circle</td><td class="file-count">2</td><td><div class="label-list"><span class="label-tag">From</span><span class="label-tag">To</span><span class="label-tag">Amount</span><span class="label-tag">Valid after</span><span class="label-tag">Valid before</span></div></td></tr>
+            <tr><td class="protocol-name">Lens</td><td class="file-count">2</td><td><div class="label-list"><span class="label-tag bad">profileId</span><span class="label-tag bad">pubid_pointed</span><span class="label-tag bad">signatureDeadline</span><span class="label-tag bad">metadataURI</span><span class="label-tag bad">followModule</span></div></td></tr>
+            <tr><td class="protocol-name">Midas</td><td class="file-count">2</td><td><div class="label-list"><span class="label-tag">You pay with</span><span class="label-tag">Amount to redeem</span><span class="label-tag">You receive</span><span class="label-tag">You will receive</span><span class="label-tag">Slippage</span></div></td></tr>
+            <tr><td class="protocol-name">WalletConnect</td><td class="file-count">2</td><td><div class="label-list"><span class="label-tag">To</span><span class="label-tag">Amount</span><span class="label-tag">Spender</span><span class="label-tag">For</span><span class="label-tag">New Unlock Time</span></div></td></tr>
+            <tr><td class="protocol-name">YieldXYZ</td><td class="file-count">2</td><td><div class="label-list"><span class="label-tag">Assets</span><span class="label-tag">Shares</span><span class="label-tag">Owner</span><span class="label-tag">Shares to redeem</span><span class="label-tag">Deposit asset</span></div></td></tr>
+            <tr><td class="protocol-name">Benqi</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to stake</span><span class="label-tag">sAVAX amount</span><span class="label-tag">Unlock index</span></div></td></tr>
+            <tr><td class="protocol-name">Consensus-specs</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Validator public key</span><span class="label-tag">Amount to deposit</span><span class="label-tag">Withdraw credentials</span></div></td></tr>
+            <tr><td class="protocol-name">DeGate</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">From</span><span class="label-tag">To</span><span class="label-tag bad">TokenID</span><span class="label-tag bad">ValidUntil</span><span class="label-tag bad">AccountID</span><span class="label-tag bad">MaxFee</span></div></td></tr>
+            <tr><td class="protocol-name">Dispatch</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Profile Ids</span><span class="label-tag">Data</span><span class="label-tag">Nonce</span><span class="label-tag">Expiration Date</span></div></td></tr>
+            <tr><td class="protocol-name">Ethena</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount</span><span class="label-tag">Receiver</span></div></td></tr>
+            <tr><td class="protocol-name">Fellow Fund</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Fellowship ID</span><span class="label-tag">Total Funding</span><span class="label-tag">Program End Date</span></div></td></tr>
+            <tr><td class="protocol-name">Figment</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Validator Public Key</span><span class="label-tag">Amount to Deposit</span><span class="label-tag">Withdraw credentials</span></div></td></tr>
+            <tr><td class="protocol-name">Hyperliquid</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount</span><span class="label-tag">HyperEVM recipient</span><span class="label-tag">Mint recipient</span><span class="label-tag">Max fee</span></div></td></tr>
+            <tr><td class="protocol-name">LedgerQuest</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Receiver</span><span class="label-tag">Collection</span><span class="label-tag">Quest Type</span></div></td></tr>
+            <tr><td class="protocol-name">LiFi</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to Send</span><span class="label-tag">Beneficiary</span><span class="label-tag">Minimum to Receive</span><span class="label-tag">Recipient</span></div></td></tr>
+            <tr><td class="protocol-name">MakerDAO</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag" style="color:var(--text-muted);font-style:italic;">screens-only (no labels)</span></div></td></tr>
+            <tr><td class="protocol-name">OKX</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to Send</span><span class="label-tag">Minimum to Receive</span><span class="label-tag">Refund To</span></div></td></tr>
+            <tr><td class="protocol-name">OpenCover</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Cover amount</span><span class="label-tag">Cover duration</span><span class="label-tag">Premium amount</span><span class="label-tag">Fee amount</span></div></td></tr>
+            <tr><td class="protocol-name">Opensea</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Offer expiration</span><span class="label-tag">Price</span><span class="label-tag">Contract address</span></div></td></tr>
+            <tr><td class="protocol-name">POAP</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Token Id</span><span class="label-tag">Expiration Time</span><span class="label-tag">Migration Fee</span><span class="label-tag">To</span></div></td></tr>
+            <tr><td class="protocol-name">QuickSwap</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to Send</span><span class="label-tag">Amount to Receive</span><span class="label-tag">Beneficiary</span><span class="label-tag">Minimum amount</span><span class="label-tag">Deadline</span></div></td></tr>
+            <tr><td class="protocol-name">Serenita</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to stake</span><span class="label-tag">Amount to withdraw</span><span class="label-tag">Rewards receiver</span><span class="label-tag">Withdrawal Index</span></div></td></tr>
+            <tr><td class="protocol-name">SmartCredit</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Loan Amount</span><span class="label-tag">Collateral amount</span><span class="label-tag">Loan interest rate</span><span class="label-tag">Load Term</span><span class="label-tag">Debtor</span></div></td></tr>
+            <tr><td class="protocol-name">StarkGate</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to deposit</span><span class="label-tag">Recipient</span><span class="label-tag">Deposit fee</span></div></td></tr>
+            <tr><td class="protocol-name">Swell</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Amount to stake</span><span class="label-tag">Referral</span><span class="label-tag">Spender</span><span class="label-tag">Amount</span><span class="label-tag">Address</span></div></td></tr>
+            <tr><td class="protocol-name">Tether</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Spender</span><span class="label-tag">Amount</span><span class="label-tag">To</span></div></td></tr>
+            <tr><td class="protocol-name">WETH</td><td class="file-count">1</td><td><div class="label-list"><span class="label-tag">Spender</span><span class="label-tag">Amount</span><span class="label-tag">To</span><span class="label-tag">From</span></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-text">Clear Signing Registry Audit &middot; April 2026 &middot; <a href="https://ethux.design">EthUX</a></span>
+      <span class="footer-text">Data source: <a href="https://github.com/LedgerHQ/clear-signing-erc7730-registry" target="_blank" rel="noopener">LedgerHQ/clear-signing-erc7730-registry</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Theme init (match ethux.design behavior)
+    (function() {
+      var saved = localStorage.getItem('ethux-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+
+    function toggleTheme() {
+      var h = document.documentElement;
+      h.classList.toggle('dark');
+      localStorage.setItem('ethux-theme', h.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    function toggleMobileNav() {
+      var menu = document.getElementById('mobile-menu');
+      var btn = document.querySelector('.nav-hamburger');
+      if (menu && btn) {
+        var open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+    }
+
+    // Scroll reveal
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+  </script>
+</body>
+</html>
